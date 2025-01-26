@@ -16,3 +16,5 @@ Manga Scraper is a tool designed to extract information from manga available on 
 - SQLAlchemy (for interacting with the database)
 - Supabase (database storage)
 - Redis (for managing scraping state)
+- **Batch Processing**: Requests are separated into batches to optimize performance.
+- **Asynchronous Scraping**: Uses `asyncio.to_thread` to run the scraping process in separate threads for better concurrency and performance.
