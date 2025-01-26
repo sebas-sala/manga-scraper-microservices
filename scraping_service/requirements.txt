@@ -1,0 +1,11 @@
+beautifulsoup4
+schedule
+requests
+python-dotenv
+pika
+rabbiteer==0.1.7
+pytest
+redis
+redis[hiredis]
+colorlog
+aiohttp

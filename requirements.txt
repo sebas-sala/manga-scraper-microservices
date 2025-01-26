@@ -1,0 +1,15 @@
+beautifulsoup4
+schedule
+requests
+python-dotenv
+pytest
+redis
+redis[hiredis]
+supabase
+pika
+sqlalchemy
+psycopg2
+rabbiteer==0.1.7
+colorlog
+pytest-asyncio
+html-scrubber

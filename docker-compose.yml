@@ -1,0 +1,51 @@
+volumes:
+  redis-data:
+
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+
+  redis: 
+    image: redis:7.4.2-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  scraping-service:
+    container_name: scraping-service
+    build: ./scraping_service
+    environment:
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - SCRAPE_MANGAS_URL=${SCRAPE_MANGAS_URL}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitmq
+      - redis
+    volumes:
+      - ./scraping_service:/app
+
+  db-service:
+    container_name: db-service
+    build: ./db_service
+    environment:
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - DATABASE_URL=${DATABASE_URL} 
+    ports:
+      - "5001:5001"
+    depends_on:
+      - rabbitmq
+      - redis
+    volumes:
+      - ./db_service:/app

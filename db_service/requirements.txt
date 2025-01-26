@@ -1,0 +1,9 @@
+supabase
+requests
+python-dotenv
+pika
+sqlalchemy
+psycopg2
+rabbiteer==0.1.7
+colorlog
+html-scrubber
